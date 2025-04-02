@@ -2,10 +2,10 @@
 
 <div>
   <div align="left">
-     [HackaTruck](https://hackatruck.com.br/)
+    <a href="https://hackatruck.com.br/">HackaTruck</a> é um projeto de capacitação profissional centrado na linguagem de programação SwiftUI.
   </div>
   <div align="right">
-    <img src="https://hackatruck.com.br/wp-content/themes/hackatruck/assets/img/logo-hackatruck.png" width="50%" />
+    <img src="https://ugc.production.linktr.ee/a6TYiIpSZGyAACrAnjIV_B86u5cUn52u1TE4G?io=true&size=avatar-v3_0" width="30%"/>
   </div>
 </div>
 
