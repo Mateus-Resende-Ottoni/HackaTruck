@@ -44,11 +44,11 @@ class ViewModel : ObservableObject {
         
     } // Fim func fetch()
     
-    func post_request(_ obj : Presentation ) {
+    func post_request(_ obj : Presentation ) -> Bool {
         
         // Acesso à API
         guard let url = URL(string: "http://192.168.128.9:1880/postPresentations")
-        else { return } // Retornar vazio se a URL não for válida
+        else { return false } // Retornar vazio se a URL não for válida
 
         // create post request
         var apiRequest = URLRequest(url: url)
@@ -85,6 +85,7 @@ class ViewModel : ObservableObject {
         
         
         task.resume()
+        return true
     } // Fim func post_request
     
 } // Fim class ViewModel
