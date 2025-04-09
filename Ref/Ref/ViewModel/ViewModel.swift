@@ -10,6 +10,7 @@ import Foundation
 class ViewModel : ObservableObject {
     
     @Published var apresentacoes : [Presentation] = []
+    var transcricao = ViewModelText()
     
     func fetch() {
         // Acesso à API
@@ -78,6 +79,11 @@ class ViewModel : ObservableObject {
             }
             if httpResponse.statusCode == 200 {
                 print("Resource POST successfully")
+                let palestra_transcription = Transcription(_id: obj._id,
+                                                          _rev: obj._rev,
+                                                          code: obj.code,
+                                                          text_transcription: "")
+                self.transcricao.post_request(palestra_transcription)
             } else {
                 print("Error POST resource: status code \(httpResponse.statusCode)")
             }

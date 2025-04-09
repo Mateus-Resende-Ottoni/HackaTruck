@@ -44,5 +44,48 @@ class ViewModelText : ObservableObject {
         
     } // Fim func fetch()
     
+    func post_request(_ obj : Transcription ) {
+        
+        // Acesso à API
+        guard let url = URL(string: "http://192.168.128.9:1880/postPresentationsText")
+        else { return } // Retornar vazio se a URL não for válida
+
+        // create post request
+        var apiRequest = URLRequest(url: url)
+        apiRequest.httpMethod = "POST"
+        
+        var headers = apiRequest.allHTTPHeaderFields ?? [:]
+        headers["Content-Type"] = "application/json"
+        apiRequest.allHTTPHeaderFields = headers
+        
+        let encoder = JSONEncoder()
+        do {
+            let jsonData = try encoder.encode(obj)
+            apiRequest.httpBody = jsonData
+            print("jsonData: ", String(data: apiRequest.httpBody!, encoding: .utf8) ?? "no body data")
+        } catch {
+            print("Error encoding to JSON: \(error.localizedDescription)")
+        }
+
+        let task = URLSession.shared.dataTask(with: apiRequest) { data, response, error in
+            if let error = error {
+                print("Error to send resource: \(error.localizedDescription)")
+                return
+            }
+            guard let httpResponse = response as? HTTPURLResponse else {
+                print("Error to send resource: invalid response")
+                return
+            }
+            if httpResponse.statusCode == 200 {
+                print("Resource POST successfully")
+            } else {
+                print("Error POST resource: status code \(httpResponse.statusCode)")
+            }
+        }
+        
+        
+        task.resume()
+    } // Fim func post_request
+    
     
 } // Fim class ViewModelPresentation
