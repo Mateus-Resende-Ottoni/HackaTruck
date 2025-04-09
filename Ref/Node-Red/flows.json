@@ -1,0 +1,249 @@
+[
+    {
+        "id": "f6f5de3e71e86d36",
+        "type": "tab",
+        "label": "Presentations",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "f5e35434d2b941ed",
+        "type": "http response",
+        "z": "f6f5de3e71e86d36",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 850,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "18eaa09e8cd21f19",
+        "type": "http in",
+        "z": "f6f5de3e71e86d36",
+        "name": "",
+        "url": "leituraPresentations",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 150,
+        "y": 100,
+        "wires": [
+            [
+                "665447a498d5d7bb"
+            ]
+        ]
+    },
+    {
+        "id": "9cda09f9f188e581",
+        "type": "http response",
+        "z": "f6f5de3e71e86d36",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 850,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "78db35af53978fbc",
+        "type": "http in",
+        "z": "f6f5de3e71e86d36",
+        "name": "",
+        "url": "postPresentations",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 150,
+        "y": 160,
+        "wires": [
+            [
+                "6fd07189ae5dbb68"
+            ]
+        ]
+    },
+    {
+        "id": "6fd07189ae5dbb68",
+        "type": "cloudantplus out",
+        "z": "f6f5de3e71e86d36",
+        "name": "",
+        "cloudant": "4ee14af51516f175",
+        "database": "presentations2",
+        "service": "_ext_",
+        "payonly": true,
+        "operation": "insert",
+        "x": 540,
+        "y": 160,
+        "wires": [
+            [
+                "f5e35434d2b941ed"
+            ]
+        ]
+    },
+    {
+        "id": "665447a498d5d7bb",
+        "type": "cloudantplus in",
+        "z": "f6f5de3e71e86d36",
+        "name": "",
+        "cloudant": "4ee14af51516f175",
+        "database": "presentations2",
+        "service": "_ext_",
+        "search": "_all_",
+        "design": "",
+        "index": "",
+        "x": 540,
+        "y": 100,
+        "wires": [
+            [
+                "9cda09f9f188e581"
+            ]
+        ]
+    },
+    {
+        "id": "4075d32faf4b5932",
+        "type": "http response",
+        "z": "f6f5de3e71e86d36",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 850,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "cc2b820986a48c6c",
+        "type": "http in",
+        "z": "f6f5de3e71e86d36",
+        "name": "",
+        "url": "leituraPresentationsText",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 160,
+        "y": 300,
+        "wires": [
+            [
+                "70a1d925b250c79d"
+            ]
+        ]
+    },
+    {
+        "id": "6239166a9d5bdb3e",
+        "type": "http response",
+        "z": "f6f5de3e71e86d36",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 850,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "62073848b16ed8a5",
+        "type": "http in",
+        "z": "f6f5de3e71e86d36",
+        "name": "",
+        "url": "postPresentationsText",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 160,
+        "y": 360,
+        "wires": [
+            [
+                "bdd8a280adaac89b"
+            ]
+        ]
+    },
+    {
+        "id": "bdd8a280adaac89b",
+        "type": "cloudantplus out",
+        "z": "f6f5de3e71e86d36",
+        "name": "",
+        "cloudant": "4ee14af51516f175",
+        "database": "presentationstext2",
+        "service": "_ext_",
+        "payonly": true,
+        "operation": "insert",
+        "x": 550,
+        "y": 360,
+        "wires": [
+            [
+                "4075d32faf4b5932"
+            ]
+        ]
+    },
+    {
+        "id": "70a1d925b250c79d",
+        "type": "cloudantplus in",
+        "z": "f6f5de3e71e86d36",
+        "name": "",
+        "cloudant": "4ee14af51516f175",
+        "database": "presentationstext2",
+        "service": "_ext_",
+        "search": "_all_",
+        "design": "",
+        "index": "",
+        "x": 550,
+        "y": 300,
+        "wires": [
+            [
+                "6239166a9d5bdb3e"
+            ]
+        ]
+    },
+    {
+        "id": "a18228d75c63e9c2",
+        "type": "http response",
+        "z": "f6f5de3e71e86d36",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 850,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "62de463aa2ad1beb",
+        "type": "http in",
+        "z": "f6f5de3e71e86d36",
+        "name": "",
+        "url": "updatePresentationsText",
+        "method": "put",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 170,
+        "y": 420,
+        "wires": [
+            [
+                "d3344af42bf3e232"
+            ]
+        ]
+    },
+    {
+        "id": "d3344af42bf3e232",
+        "type": "cloudantplus out",
+        "z": "f6f5de3e71e86d36",
+        "name": "",
+        "cloudant": "4ee14af51516f175",
+        "database": "presentationstext2",
+        "service": "_ext_",
+        "payonly": true,
+        "operation": "insert",
+        "x": 550,
+        "y": 420,
+        "wires": [
+            [
+                "a18228d75c63e9c2"
+            ]
+        ]
+    },
+    {
+        "id": "4ee14af51516f175",
+        "type": "cloudantplus",
+        "host": "https://f1c0dcf9-5075-4061-a1f8-2f4ca596058a-bluemix.cloudantnosqldb.appdomain.cloud",
+        "name": "PresentationsData",
+        "useapikey": true
+    }
+]
