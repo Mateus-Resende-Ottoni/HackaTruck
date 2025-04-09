@@ -18,34 +18,47 @@ struct AcompanharView: View {
 
                     Spacer()
 
-                    VStack {
-                        ForEach(my_presentations, id: \._id) { palestra in
-                            NavigationLink(destination: DescricaoView(palestra: palestra, paleta: paleta)) {
-                                Text("Descrição da palestra: \(palestra.title)")
+                    ScrollView {
+                        
+                        VStack {
+                            ForEach(my_presentations, id: \._id) { palestra in
+                                Text(palestra.title)
                                     .font(.headline)
-                                    .foregroundColor(.white)
-                                    .padding()
                                     .frame(maxWidth: 300)
-                                    .background(paleta!.buttonColor)
-                                    .cornerRadius(10)
+                                    .shadow(color: .white, radius: 1)
+                                    .shadow(color: .white, radius: 1)
                                     .shadow(radius: 5)
-                            }
+                                NavigationLink(destination: DescricaoView(palestra: palestra, paleta: paleta)) {
+                                    Text("Descrição da palestra")
+                                        .font(.headline)
+                                        .foregroundColor(.white)
+                                        .padding()
+                                        .frame(maxWidth: 300)
+                                        .background(paleta!.buttonColor)
+                                        .cornerRadius(10)
+                                        .shadow(radius: 5)
+                                } // Fim NavigationLink
 
-                            NavigationLink(destination: TranscricaoView(palestra: palestra, paleta: paleta)) {
-                                Text("Transcrição da Palestra")
-                                    .font(.headline)
-                                    .foregroundColor(.white)
-                                    .padding()
-                                    .frame(maxWidth: 300)
-                                    .background(paleta!.buttonColor)
-                                    .cornerRadius(10)
-                                    .shadow(radius: 5)
-                            }
-                        }
-                    }
-                    .padding(.vertical, 100)
-                }
-            }
+                                NavigationLink(destination: TranscricaoView(palestra: palestra, paleta: paleta)) {
+                                    Text("Transcrição da Palestra")
+                                        .font(.headline)
+                                        .foregroundColor(.white)
+                                        .padding()
+                                        .frame(maxWidth: 300)
+                                        .background(paleta!.buttonColor)
+                                        .cornerRadius(10)
+                                        .shadow(radius: 5)
+                                } // Fim NavigationLink
+                                .padding(.bottom, 35)
+                            } // Fim ForEach
+                        } // Fim VStack
+                        
+                        
+                    } // Fim ScrollView
+                    
+
+                } // Fim VStack
+            } // Fim ZStack
         }
     }
 }

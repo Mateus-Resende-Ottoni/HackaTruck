@@ -34,10 +34,22 @@ struct TranscricaoView: View {
                         .font(.headline)
                         .foregroundColor(paleta?.textColor ?? .black)
 
-                    Text(transcription.text_transcription ?? "Nenhuma transcrição disponível no momento.") // Conteúdo da palestra
-                        .font(.body)
-                        .foregroundColor(paleta?.textColor ?? .black)
-                        .padding()
+                    if (transcription.text_transcription == nil) {
+                        Text("Nenhuma transcrição disponível no momento.")
+                            .font(.body)
+                            .foregroundColor(paleta?.textColor ?? .black)
+                            .padding()
+                    } else if (transcription.text_transcription?.count ?? 0 < 1) {
+                        Text("Nenhuma transcrição disponível no momento.")
+                            .font(.body)
+                            .foregroundColor(paleta?.textColor ?? .black)
+                            .padding()
+                    } else {
+                        Text(transcription.text_transcription ?? "Nenhuma transcrição disponível no momento.") // Conteúdo da palestra
+                            .font(.body)
+                            .foregroundColor(paleta?.textColor ?? .black)
+                            .padding()
+                    }
 
                     Spacer()
                 } // Fim VStack

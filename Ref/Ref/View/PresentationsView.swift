@@ -132,7 +132,7 @@ struct PresentationsView: View {
                                     .pickerStyle(SegmentedPickerStyle())
                                     .padding(.horizontal)
                                 }
-                                .padding(.top, 100)
+                                .padding(.top, 30)
                             }
                         }
                     }
@@ -140,7 +140,7 @@ struct PresentationsView: View {
                 .tint(.blue)
                 .onAppear() {
                     viewModel.fetch()
-                    Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { _ in
+                    Timer.scheduledTimer(withTimeInterval: 3.75, repeats: false) { _ in
                         presentations = viewModel.apresentacoes
                         
                     } // Fim Timer
