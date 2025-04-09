@@ -2,7 +2,7 @@
 //  RefApp.swift
 //  Ref
 //
-//  Created by Turma02-2 on 08/04/25.
+//  Created by Presentations on 08/04/25.
 //
 
 import SwiftUI
@@ -11,7 +11,7 @@ import SwiftUI
 struct RefApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            PresentationsView()
         }
     }
 }
