@@ -1,8 +1,10 @@
 import SwiftUI
 
 struct DescricaoView: View {
-    var palestra: Presentation // Recebe a palestra selecionada
+    var palestra: Presentation
     var paleta: ColorPalette?
+
+    @StateObject private var pdfManager = PDFTextManager()
 
     var body: some View {
         ZStack {
@@ -20,9 +22,31 @@ struct DescricaoView: View {
                     .foregroundColor(paleta?.textColor ?? .black)
                     .bold()
 
-                Text("Apresentador: \(palestra.author)")
-                    .font(.subheadline)
-                    .foregroundColor(paleta?.textColor ?? .black)
+                HStack {
+                    
+                    Spacer()
+                    
+                    Text("Apresentador: \(palestra.author)")
+                        .padding(.leading, 55)
+                        .font(.subheadline)
+                        .foregroundColor(paleta?.textColor ?? .black)
+                    
+                    Spacer()
+                    
+                    Button {
+                        // Função
+                        pdfManager.readCurrentPageText()
+                    } label: {
+                        Image(systemName: "volume.2.fill")
+                            .foregroundStyle(paleta?.textColor ?? .black)
+                            .font(.title)
+                            .padding(10)
+                            .background(paleta?.background2)
+                            .cornerRadius(70)
+                    }
+                    
+                    
+                } // Fim HStack
 
                 Divider().background(paleta?.textColor ?? .black)
 
@@ -30,14 +54,24 @@ struct DescricaoView: View {
                     .font(.headline)
                     .foregroundColor(paleta?.textColor ?? .black)
 
-                Text("Nenhuma descrição fornecida.") // Pode ser atualizado com mais dados
-                    .font(.body)
+                Text("Texto extraído da página atual:")
+                    .font(.subheadline)
                     .foregroundColor(paleta?.textColor ?? .black)
-                    .padding()
-                Spacer()
+
+                Text("Página \(pdfManager.currentPageIndex + 1) de \(pdfManager.pageCount)")
+                    .font(.footnote)
+                    .foregroundColor(paleta?.textColor ?? .black)
+
+                ScrollView {
+                    Text(pdfManager.currentPageText)
+                        .foregroundColor(paleta?.textColor ?? .black)
+                        .padding()
+                }
+                .frame(height: 150)
+
                 HStack(spacing: 40) {
                     Button(action: {
-                        // Ação para retroceder slide
+                        pdfManager.goToPreviousPage()
                     }) {
                         Image(systemName: "chevron.left")
                             .font(.system(size: 24))
@@ -46,9 +80,10 @@ struct DescricaoView: View {
                             .background(Color.white.opacity(0.3))
                             .clipShape(Circle())
                     }
+                    .disabled(pdfManager.currentPageIndex == 0)
 
                     Button(action: {
-                        // Ação para avançar slide
+                        pdfManager.goToNextPage()
                     }) {
                         Image(systemName: "chevron.right")
                             .font(.system(size: 24))
@@ -57,9 +92,8 @@ struct DescricaoView: View {
                             .background(Color.white.opacity(0.3))
                             .clipShape(Circle())
                     }
+                    .disabled(pdfManager.currentPageIndex + 1 >= pdfManager.pageCount)
                 }
-
-                
 
                 NavigationLink(destination: TranscricaoView(palestra: palestra, paleta: paleta)) {
                     Text("Ver Transcrição")
@@ -72,8 +106,20 @@ struct DescricaoView: View {
                         .shadow(radius: 5)
                 }
 
+                Spacer()
             }
             .padding()
+            .onAppear {
+                // Carrega o PDF da palestra ao abrir a tela
+                let urlString = palestra.pdf_url
+                    
+                pdfManager.loadPDF(from: urlString) { success in
+                        if !success {
+                            print("Erro ao carregar o PDF da palestra.")
+                        }
+                    }
+                
+            }
         }
     }
 }

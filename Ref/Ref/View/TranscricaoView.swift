@@ -60,6 +60,8 @@ struct TranscricaoView: View {
             .onAppear() {
                 viewModelText.fetch()
                 Timer.scheduledTimer(withTimeInterval: 2.5, repeats: true) { _ in
+                    
+                    viewModelText.fetch()
                     viewModelText.transcricoes.forEach {transcricao in
                         if (transcricao.code == palestra.code) {
                             transcription = transcricao

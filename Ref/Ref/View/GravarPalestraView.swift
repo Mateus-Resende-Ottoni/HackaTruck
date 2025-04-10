@@ -4,8 +4,8 @@ struct GravarPalestraView: View {
     var palestra: Presentation
     var paleta: ColorPalette?
     
-    @State private var isRecording = false
-    
+    @StateObject private var speechManager = SpeechRecognizerManager()
+
     var body: some View {
         ZStack {
             LinearGradient(gradient: Gradient(colors: [paleta?.background1 ?? .white, paleta?.background2 ?? .gray]),
@@ -30,12 +30,15 @@ struct GravarPalestraView: View {
                     .foregroundColor(paleta?.textColor ?? .black)
                     .padding()
                 
-                Text("Texto da transcrição aparecerá aqui...") // Aqui a transcrição seria exibida
-                
+                TextEditor(text: $speechManager.transcribedText)
+                    .padding()
+                    .frame(height: 200)
+                    .border(Color.gray)
+
                 Spacer()
                 
                 Button(action: toggleRecording) {
-                    Text(isRecording ? "Parar Gravação" : "Iniciar Gravação")
+                    Text(speechManager.isRecording ? "Parar Gravação" : "Iniciar Gravação")
                         .font(.headline)
                         .foregroundColor(.white)
                         .padding()
@@ -45,14 +48,17 @@ struct GravarPalestraView: View {
                         .shadow(radius: 5)
                 }
                 .padding(.bottom, 50)
+                .disabled(speechManager.authorizationStatus != .authorized)
             }
             .padding()
         }
     }
     
     func toggleRecording() {
-        // Implementação para iniciar/parar a gravação do áudio
-        // Aqui você pode adicionar a lógica para gravar o áudio ou simular
-        isRecording.toggle()
+        if speechManager.isRecording {
+            speechManager.stopRecording()
+        } else {
+            try? speechManager.startRecording(codigo: palestra.code)
+        }
     }
 }
