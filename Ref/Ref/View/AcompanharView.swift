@@ -15,12 +15,14 @@ struct AcompanharView: View {
                     Image("presentationsLogo")
                         .resizable()
                         .frame(width: 200, height: 200)
+                        .accessibilityLabel("Logo")
 
                     Spacer()
 
                     ScrollView {
                         
                         VStack {
+                            
                             ForEach(my_presentations, id: \._id) { palestra in
                                 Text(palestra.title)
                                     .font(.headline)
@@ -28,6 +30,8 @@ struct AcompanharView: View {
                                     .shadow(color: .white, radius: 1)
                                     .shadow(color: .white, radius: 1)
                                     .shadow(radius: 5)
+                                    .accessibilityLabel("Palestra  \(palestra.title)")
+                                
                                 NavigationLink(destination: DescricaoView(palestra: palestra, paleta: paleta)) {
                                     Text("Descrição da palestra")
                                         .font(.headline)
@@ -38,6 +42,8 @@ struct AcompanharView: View {
                                         .cornerRadius(10)
                                         .shadow(radius: 5)
                                 } // Fim NavigationLink
+                                .accessibilityLabel("Botão de Descrição da Palestra")
+                                .accessibilityHint("Acesso à uma descrição em texto e em áudio da apresentação")
 
                                 NavigationLink(destination: TranscricaoView(palestra: palestra, paleta: paleta)) {
                                     Text("Transcrição da Palestra")
@@ -50,7 +56,10 @@ struct AcompanharView: View {
                                         .shadow(radius: 5)
                                 } // Fim NavigationLink
                                 .padding(.bottom, 35)
+                                .accessibilityLabel("Botão de Transcrição da Palestra")
+                                
                             } // Fim ForEach
+                            
                         } // Fim VStack
                         
                         

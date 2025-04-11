@@ -15,7 +15,7 @@ struct GravarPalestraView: View {
             VStack {
                 Image("presentationsLogo")
                     .resizable()
-                    .frame(width: 200, height: 200)
+                    .frame(width: 170, height: 170)
                 
                 Text(palestra.title)
                     .font(.title)
@@ -32,7 +32,7 @@ struct GravarPalestraView: View {
                 
                 TextEditor(text: $speechManager.transcribedText)
                     .padding()
-                    .frame(height: 200)
+                    .frame(height: 250)
                     .border(Color.gray)
 
                 Spacer()
@@ -49,6 +49,9 @@ struct GravarPalestraView: View {
                 }
                 .padding(.bottom, 50)
                 .disabled(speechManager.authorizationStatus != .authorized)
+                .accessibilityLabel(speechManager.isRecording ? "Parar Gravação" : "Iniciar Gravação")
+                .accessibilityHint(speechManager.isRecording ? "Parar gravação atual" : "Iniciar Gravação para a palestra \(palestra.title)")
+                
             }
             .padding()
         }
@@ -61,4 +64,8 @@ struct GravarPalestraView: View {
             try? speechManager.startRecording(codigo: palestra.code)
         }
     }
+}
+
+#Preview {
+    GravarPalestraView(palestra: Presentation(_id: nil, _rev: nil, code: "aaaa", title: "title", author: "author", pdf_url: "url"), paleta: paleta1)
 }

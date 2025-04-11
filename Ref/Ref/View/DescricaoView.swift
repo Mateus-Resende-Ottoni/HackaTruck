@@ -12,10 +12,10 @@ struct DescricaoView: View {
                            startPoint: .top, endPoint: .bottom)
                 .ignoresSafeArea()
 
-            VStack(spacing: 20) {
+            VStack(spacing: 10) {
                 Image("presentationsLogo")
                     .resizable()
-                    .frame(width: 150, height: 150)
+                    .frame(width: 100, height: 100)
 
                 Text(palestra.title)
                     .font(.title)
@@ -30,6 +30,7 @@ struct DescricaoView: View {
                         .padding(.leading, 55)
                         .font(.subheadline)
                         .foregroundColor(paleta?.textColor ?? .black)
+                        .accessibilityLabel("Apresentador: \(palestra.author)")
                     
                     Spacer()
                     
@@ -41,9 +42,10 @@ struct DescricaoView: View {
                             .foregroundStyle(paleta?.textColor ?? .black)
                             .font(.title)
                             .padding(10)
-                            .background(paleta?.background2)
+                            .background(.white)
                             .cornerRadius(70)
-                    }
+                    } // Fim Button
+                    .accessibilityLabel("Botão para falar Descrição da página")
                     
                     
                 } // Fim HStack
@@ -66,8 +68,9 @@ struct DescricaoView: View {
                     Text(pdfManager.currentPageText)
                         .foregroundColor(paleta?.textColor ?? .black)
                         .padding()
-                }
-                .frame(height: 150)
+                } // Fim ScrollView
+                .frame(height: 175)
+                .accessibilityLabel("Texto extraído da página")
 
                 HStack(spacing: 40) {
                     Button(action: {
@@ -77,10 +80,12 @@ struct DescricaoView: View {
                             .font(.system(size: 24))
                             .foregroundColor(paleta?.textColor ?? .black)
                             .padding()
-                            .background(Color.white.opacity(0.3))
+                            .background(Color.white)
                             .clipShape(Circle())
-                    }
+                            .shadow(color: paleta!.background1, radius: 3)
+                    } // Fim Button
                     .disabled(pdfManager.currentPageIndex == 0)
+                    .accessibilityLabel("Ir para a página anterior")
 
                     Button(action: {
                         pdfManager.goToNextPage()
@@ -89,11 +94,14 @@ struct DescricaoView: View {
                             .font(.system(size: 24))
                             .foregroundColor(paleta?.textColor ?? .black)
                             .padding()
-                            .background(Color.white.opacity(0.3))
+                            .background(Color.white)
                             .clipShape(Circle())
-                    }
+                            .shadow(color: paleta!.background1, radius: 3)
+                    } // Fim Button
                     .disabled(pdfManager.currentPageIndex + 1 >= pdfManager.pageCount)
-                }
+                    .accessibilityLabel("Ir para a próxima página")
+                    
+                } // Fim HStack
 
                 NavigationLink(destination: TranscricaoView(palestra: palestra, paleta: paleta)) {
                     Text("Ver Transcrição")
@@ -104,7 +112,8 @@ struct DescricaoView: View {
                         .background(paleta?.buttonColor ?? .blue)
                         .cornerRadius(10)
                         .shadow(radius: 5)
-                }
+                } // Fim NavigationLink
+                .accessibilityLabel("Acessar Transcrição da Apresentação")
 
                 Spacer()
             }
