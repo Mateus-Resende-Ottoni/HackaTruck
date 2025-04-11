@@ -4,5 +4,7 @@
 <dict>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>Precisamos acessar a fala para comandos por voz.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Precisamos acessar o microfone para reconhecer a fala.</string>
 </dict>
 </plist>
